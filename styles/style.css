@@ -3,12 +3,10 @@
 .page {
   /* сохраните в разметке и стилях класс page. На его основе работает скрипт. */
   margin: 0 auto;
-  max-width: 1024px;
   background: url(../images/cover-image-dark.png) center no-repeat;
   background-size: cover;
   background-attachment: fixed;
   position: relative;
-  padding: 10px 10px 0 10px;
   font-family: var(--font, 'IBM Plex Mono', monospace);
   color: var(--text-color, #F1B2CE);
   font-style: normal;
@@ -28,9 +26,15 @@
 }
 
 .header {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 1fr min-content 1fr;
+  grid-template-areas: 
+  ". header__theme-menu"
+  "title title"
+  "title-item title-item";
   min-height: 100vh;
-  padding-top: 1px;
-  margin-top: -1px;
+  padding: 10px;
 }
 
 .decorated-zone {
@@ -40,8 +44,8 @@
 .header__fixed-element {
   visibility: visible;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 10px;
   color: var(--accent-color, #FF0070);
   padding-right: 28px;
   font-size: 18px;
@@ -68,17 +72,16 @@
   position: absolute;
   width: 25px;
   height: 25px;
-  bottom: 20px;
-  left: 0;
+  bottom: 10px;
+  left: 10px;
   border-bottom: 1px solid var(--accent-color, #FF0070);
   border-left: 1px solid var(--accent-color, #FF0070);
 }
 
 .header__theme-menu {
-  display: grid;
-  justify-content: end;
-  margin-block-start: 65px;
-  margin-block-end: 66px;
+  grid-area: header__theme-menu;
+  justify-self: end;
+  align-self: center;
 }
 
 .header__theme-menu-list {
@@ -113,11 +116,11 @@
 }
 
 .title {
+  grid-area: title;
   color: var(--main-header-color, #DB00FF);
   text-shadow: 4px 4px 0 var(--accent-color, #FF0070);
   font-size: clamp(7.25rem, 7.0115rem + 1.0178vw, 7.5rem);
   line-height: 82.5%;
-  margin-block-start: 66.5px;
 }
 
 .title-decor {
@@ -128,8 +131,12 @@
 }
 
 .title-item {
-  margin-block-start: 55px;
-  margin-block-end: 75px;
+  grid-area: title-item;
+  align-self: center;
+}
+
+.main-section {
+  padding: 10px;
 }
 
 .text-section {
@@ -172,10 +179,8 @@
   border: 1px solid var(--text-color, #F1B2CE);
 }
 
-
 .pictures-section {
   margin-block-start: 50px;
-  /*margin-block-end: 50px;*/
 }
 
 .text-section-decor {
@@ -208,9 +213,11 @@
 
 .footer {
   display: flex;
+  justify-content: center;
   min-height: 100vh;
   position: relative;
-  margin-block-start: 40px;
+  margin-block-start: 30px;
+  padding: 10px;
 }
 
 .footer::before {
@@ -219,7 +226,7 @@
   width: 25px;
   height: 25px;
   top: 10px;
-  right: 0;
+  right: 10px;
   border-top: 1px solid var(--accent-color, #FF0070);
   border-right: 1px solid var(--accent-color, #FF0070);
 }
@@ -229,8 +236,8 @@
   position: absolute;
   width: 25px;
   height: 25px;
-  bottom: 10px;
-  left: 0;
+  bottom: 11px;
+  left: 10px;
   border-bottom: 1px solid var(--accent-color, #FF0070);
   border-left: 1px solid var(--accent-color, #FF0070);
 }
@@ -241,33 +248,37 @@
 }
 
 @media (min-width: 768px) {
-  .page {
-    padding: 20px 20px 0 20px;
-  }
-  
+
   .page::before {
     top: 20px;
     right: 20px;
   }
 
-  .header::after {
-    bottom: 40px;
+  .header {
+    padding: 20px;
   }
 
-  .header__theme-menu {
-    margin-block-start: 171px;
+  .header__fixed-element {
+    top: 20px;
+    right: 20px;
+  }
+
+  .header::after {
+    bottom: 20px;
+    left: 20px;
   }
 
   .header .title {
     margin-left: -20px;
-    margin-block-start: 172.5px;
   }
 
   .title-item {
     width: 50%;
     margin-left: auto;
-    margin-block-start: 162px;
-    margin-block-end: 203px;
+  }
+
+  .main-section {
+    padding: 20px;
   }
 
   .text-section {
@@ -326,7 +337,6 @@
 
   .pictures-section {
     margin-block-start: 80px;
-    /*margin-block-end: 60px;*/
   }
 
   .pictures-area {
@@ -379,7 +389,8 @@
   }
 
   .footer {
-    margin-block-start: 60px;
+    margin-block-start: 40px;
+    padding: 20px;
   }
 
   .footer-title {
@@ -388,37 +399,35 @@
 
   .footer::before {
     top: 20px;
+    right: 20px;
   }
 
   .footer::after {
     bottom: 20px;
+    left: 20px;
   }
 }
 
 @media (min-width: 1024px) {
 
-  .title {
-    font-size: clamp(7.5rem, 0.5625rem + 14.4531vw, 9.8125rem);
-    margin-block-start: 270.5px;
+  .header {
+    grid-template-areas: 
+    "header__theme-menu header__theme-menu"
+    "title title"
+    "title-item title-item";
   }
 
-  .header .title {
-    margin-block-start: 270.5px;
+  .title {
+    font-size: clamp(7.5rem, 0.5625rem + 14.4531vw, 9.8125rem);
   }
 
   .header__theme-menu {
-    margin-block-start: 0;
-    margin-block-end: 0;
-    justify-content: center;
+    justify-self: center;
+    align-self: start;
   }
   
   .header__theme-menu-list {
     flex-direction: row;
-  }
-
-  .title-item {
-    margin-block-start: 116px;
-    margin-block-end: 154px;
   }
 
   .text-section {
@@ -449,10 +458,6 @@
 
   .pictures-section {
     margin-block-start: 80px;
-  }
-
-  .footer {
-    margin-block-start: 60px;
   }
 
   .footer-title {
